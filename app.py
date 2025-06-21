@@ -73,15 +73,15 @@ else:
         st.subheader("🎓 Ringkasan Nilai Akhir")
         st.markdown(f"""
             <div style='
-                background-color: #fffde7;
+                background-color:#fffde7;
                 padding: 20px;
                 border-radius: 10px;
                 border: 1px solid #f0e68c;
                 font-size: 16px;
                 line-height: 1.7;
             '>
-                <b>Nama:</b> {st.session_state.nama}<br>
-                <b>Jawaban Benar:</b> {benar} dari {total_soal} soal<br><br>
-                <span style='font-size:22px; color:#d84315;'>🎉 <b>Nilai Akhir: {nilai}/100</b></span>
+                <h4>🧑 Nama: <b>{st.session_state.nama}</b></h4>
+                <h5>✅ Jawaban Benar: <b>{benar} dari {total_soal} soal</b></h5>
+                <h3>🎉 Nilai Akhir: <b>{nilai}/100</b></h3>
             </div>
         """, unsafe_allow_html=True)
