@@ -45,10 +45,10 @@ else:
 
     jawaban_pengguna = []
     for i, soal in enumerate(soal_pilgan):
-        st.markdown(f"**{i+1}.**")         # Menampilkan nomor soal tebal
-        st.markdown(soal['soal'])          # Isi soal termasuk newline & markdown
+        st.markdown(f"<b>{i+1}. {soal['soal'].replace(chr(10), '<br>')}</b>", unsafe_allow_html=True)
         jawaban = st.radio("Pilih jawaban kamu:", soal["opsi"], key=f"soal_{i}")
         jawaban_pengguna.append(jawaban.strip()[:1])
+
 
     # === Tombol submit jawaban ===
     if st.button("📨 Kirim Jawaban"):
