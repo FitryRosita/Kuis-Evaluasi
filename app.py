@@ -2,15 +2,33 @@ import streamlit as st
 import joblib
 
 # === Konfigurasi halaman ===
-st.set_page_config(page_title="🎯 Kuis Evaluasi - Cublak-Cublak Suweng", page_icon="🎯")
+st.set_page_config(page_title="Kuis Evaluasi", page_icon="🌷")
+
+# === Gaya latar belakang kuning muda ===
+st.markdown("""
+    <style>
+    .stApp {
+        background-color: #fff9c4;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# === Judul dan caption ===
+st.title("📝 Kuis Evaluasi Interaktif")
+st.caption("Topik: Evaluasi Akhir Peluang (Etnomatematika - Permainan Cublak-Cublak Suweng")
+
+# === Petunjuk pengerjaan ===
+with st.expander("📌 Petunjuk Pengerjaan", expanded=True):
+    st.markdown("""
+    - Masukkan nama kamu terlebih dahulu.
+    - Jawablah 13 soal pilihan ganda yang ditampilkan.
+    - Klik **Kirim Jawaban** di bagian akhir untuk melihat hasil dan skor kamu.
+    """)
 
 # === Load soal dari model .pkl ===
 soal_pilgan = joblib.load("kuis_evaluasi.pkl")
 
-# === Tampilan awal dan input nama ===
-st.title("🎮 Kuis Evaluasi")
-st.caption("Topik: Evaluasi Peluang - Cublak-Cublak Suweng")
-
+# === Input nama siswa ===
 if "nama_dikunci" not in st.session_state:
     st.session_state.nama_dikunci = False
 
@@ -21,17 +39,17 @@ if not st.session_state.nama_dikunci:
             st.session_state.nama = nama
             st.session_state.nama_dikunci = True
 
+# === Jika nama sudah dikunci, tampilkan soal ===
 else:
-    st.success(f"Halo, {st.session_state.nama}! Silakan menjawab soal berikut.")
+    st.success(f"Halo, {st.session_state.nama}! Silakan mengerjakan kuis di bawah ini. Semangat ya 🎯")
 
-    # === Menampilkan soal-soal ===
     jawaban_pengguna = []
     for i, soal in enumerate(soal_pilgan):
         st.markdown(f"**{i+1}. {soal['soal']}**")
         jawaban = st.radio("Pilih jawaban kamu:", soal["opsi"], key=f"soal_{i}")
-        jawaban_pengguna.append(jawaban.strip()[:1])  # Ambil A/B/C/D
+        jawaban_pengguna.append(jawaban.strip()[:1])  # Ambil huruf A/B/C/D
 
-    # === Tombol untuk submit jawaban ===
+    # === Tombol submit jawaban ===
     if st.button("📨 Kirim Jawaban"):
         skor = 0
         benar = 0
@@ -44,19 +62,25 @@ else:
                 skor += 1
                 benar += 1
             else:
-                st.error(f"Soal {i+1}: ❌ Salah (Jawaban: {kunci})")
+                st.error(f"Soal {i+1}: ❌ Salah. Jawaban yang benar: {kunci}")
                 salah += 1
-
+        total_soal = len(soal_pilgan)
         nilai = int((skor / len(soal_pilgan)) * 100)
 
-        # === Ringkasan skor akhir ===
+        # === Ringkasan akhir ===
         st.markdown("---")
         st.subheader("🎓 Ringkasan Nilai Akhir")
         st.markdown(f"""
-            <div style='background-color:#fef9e7; padding: 16px; border-radius: 10px; text-align: center;'>
-                <h4> Nama: <b>{st.session_state.nama}</b></h4>
-                <h5>✅ Jawaban Benar: <b>{benar}</b></h5>
-                <h5>❌ Jawaban Salah: <b>{salah}</b></h5>
-                <h3>🎯 Nilai: <b>{nilai}/100</b></h3>
+            <div style='
+                background-color: #fffde7;
+                padding: 20px;
+                border-radius: 10px;
+                border: 1px solid #f0e68c;
+                font-size: 16px;
+                line-height: 1.7;
+            '>
+                <b>Nama:</b> {st.session_state.nama}<br>
+                <b>Jawaban Benar:</b> {benar} dari {total_soal} soal<br><br>
+                <span style='font-size:22px; color:#d84315;'>🎉 <b>Nilai Akhir: {nilai}/100</b></span>
             </div>
         """, unsafe_allow_html=True)
