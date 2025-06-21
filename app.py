@@ -15,7 +15,7 @@ st.markdown("""
 
 # === Judul dan caption ===
 st.title("📝 Kuis Evaluasi Interaktif")
-st.caption("Topik: Evaluasi Akhir Peluang (Etnomatematika - Permainan Cublak-Cublak Suweng")
+st.caption("Topik: Evaluasi Akhir Peluang (Etnomatematika - Permainan Cublak-Cublak Suweng)")
 
 # === Petunjuk pengerjaan ===
 with st.expander("📌 Petunjuk Pengerjaan", expanded=True):
