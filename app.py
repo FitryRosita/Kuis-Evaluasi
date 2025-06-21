@@ -8,7 +8,7 @@ st.set_page_config(page_title="Kuis Evaluasi", page_icon="🌷")
 st.markdown("""
     <style>
     .stApp {
-        background-color: #ECFAE5;
+        background-color: #EAEFEF;
     }
     </style>
 """, unsafe_allow_html=True)
