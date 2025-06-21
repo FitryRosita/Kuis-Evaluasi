@@ -80,8 +80,8 @@ else:
                 font-size: 16px;
                 line-height: 1.7;
             '>
-                <h4>🧑 Nama: <b>{st.session_state.nama}</b></h4>
-                <h5>✅ Jawaban Benar: <b>{benar} dari {total_soal} soal</b></h5>
+                <h4>Nama: <b>{st.session_state.nama}</b></h4>
+                <h5>Jawaban Benar: <b>{benar} dari {total_soal} soal</b></h5>
                 <h3>🎉 Nilai Akhir: <b>{nilai}/100</b></h3>
             </div>
         """, unsafe_allow_html=True)
